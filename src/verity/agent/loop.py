@@ -19,6 +19,11 @@ Ordering, and why this is a loop and not five independent pipeline stages:
 6. rules.evaluate     -- the only step that is pure and deterministic; every
    step above it exists only to build the `AuditContext` this one consumes
 
+A caller that has already read the document (`run_audit(..., fields=...)`,
+which is what the `POST /audit` fields payload uses) joins at step 5. Steps 1-4
+are recorded as supplied rather than faked, and steps 5-6 are the same code, so
+there is still exactly one place a verdict is reached.
+
 Two failure modes are treated differently, on purpose:
 
 * `PageLoadError` is a *documented* shape of bad input -- a file that passed
@@ -115,6 +120,7 @@ def run_audit(
     document_id: int | None = None,
     today: dt.date | None = None,
     dayfirst: bool = False,
+    fields: ExtractedFields | None = None,
 ) -> AuditResult:
     """Run one document through triage, extraction and policy, start to finish.
 
@@ -122,11 +128,30 @@ def run_audit(
     `verity.agent.tools.default_toolbox`); pass a toolbox built with fake
     callables to run this against fixed inputs in a test, or with
     `verity.agent.history.db_history(...)` to compare against a real ledger.
+
+    `fields` is for a caller that has already read the document -- an outside
+    agent posting a reading it did itself to `POST /audit`. Steps 1-4 then have
+    no work to do, and `path` is only a name for the record. They are recorded
+    as supplied rather than run, because a trace showing a page image that was
+    never loaded would misrepresent what the system actually did. Everything
+    from the history lookup down is the same code either way, so a control
+    cannot behave differently depending on who did the reading.
     """
     path = Path(path)
     tools = toolbox or default_toolbox()
     config = config or PolicyConfig()
     trace = Trace(document_id=document_id)
+
+    if fields is not None:
+        return _audit_supplied_fields(
+            path,
+            fields,
+            tools=tools,
+            config=config,
+            document_id=document_id,
+            today=today,
+            trace=trace,
+        )
 
     with trace.step("triage", {"path": str(path)}) as step:
         triage = tools.triage(path)
@@ -165,6 +190,69 @@ def run_audit(
                 history = list(tools.history(fields))
                 step.result = {"count": len(history)}
 
+    return _decide(
+        path,
+        fields,
+        config=config,
+        document_id=document_id,
+        ingestion_status=ingestion_status,
+        reject_reason=reject_reason,
+        history=history,
+        today=today,
+        trace=trace,
+    )
+
+
+def _audit_supplied_fields(
+    path: Path,
+    fields: ExtractedFields,
+    *,
+    tools: Toolbox,
+    config: PolicyConfig,
+    document_id: int | None,
+    today: dt.date | None,
+    trace: Trace,
+) -> AuditResult:
+    """Audit a reading somebody else produced.
+
+    Only the two steps that still have something to do are recorded: the fields
+    are noted as supplied, and the ledger lookup runs for real, because the
+    cross-document controls have to see the same history here as they would on
+    the upload path.
+    """
+    with trace.step("read_fields", note="supplied by the caller; no model was run") as step:
+        step.result = fields.as_dict()
+
+    with trace.step("history", {"vendor": fields.vendor}) as step:
+        history = list(tools.history(fields))
+        step.result = {"count": len(history)}
+
+    return _decide(
+        path,
+        fields,
+        config=config,
+        document_id=document_id,
+        ingestion_status=ACCEPTED,
+        reject_reason=None,
+        history=history,
+        today=today,
+        trace=trace,
+    )
+
+
+def _decide(
+    path: Path,
+    fields: ExtractedFields,
+    *,
+    config: PolicyConfig,
+    document_id: int | None,
+    ingestion_status: str,
+    reject_reason: str | None,
+    history: list,
+    today: dt.date | None,
+    trace: Trace,
+) -> AuditResult:
+    """The only place a verdict is reached, whoever did the reading."""
     ctx = AuditContext(
         fields=fields,
         config=config,
