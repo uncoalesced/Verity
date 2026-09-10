@@ -1,0 +1,71 @@
+# This is what turns "the tests pass on my machine" into evidence. The
+# evaluations run here too, because a control library is exactly the kind of
+# thing that keeps passing its unit tests while quietly getting worse at its job.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+
+      - name: Install the project
+        run: uv sync --frozen
+
+      - name: Lint
+        run: uv run ruff check src tests scripts
+
+      - name: Tests
+        run: uv run pytest -q
+
+      # The evaluations below are deterministic and need no model, no API key
+      # and no database, so they belong in every run rather than in a nightly
+      # job somebody stops reading. Anything needing Claude (the citation check,
+      # RAGAS) or real inference (the extraction eval, the end-to-end image
+      # path) is deliberately not here -- see the README for how to run those.
+      - name: Control precision and recall (19 hand-written cases)
+        run: uv run -m verity.eval.policy_eval --out policy_eval_report.json
+
+      - name: Control precision and recall (held-out fraud set)
+        run: >
+          uv run -m verity.eval.fraud_eval
+          --corpus sample/verity_sample_invoices_m_500.csv
+          --out fraud_eval_report.json
+
+      - name: Trajectory success rate
+        run: uv run -m verity.eval.trajectory_eval --work-dir "${{ runner.temp }}/pages"
+
+      - name: Policy retrieval quality
+        run: >
+          uv run -m verity.eval.rag_eval
+          --corpus sample/verity_sample_invoices_m_500.csv
+          --out rag_eval_report.json
+
+      - name: Keep the reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eval-reports
+          path: |
+            policy_eval_report.json
+            fraud_eval_report.json
+            rag_eval_report.json
+            trajectory_eval_report.json
+          if-no-files-found: warn
