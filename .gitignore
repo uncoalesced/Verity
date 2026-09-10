@@ -6,3 +6,13 @@ __pycache__/
 .pytest_cache/
 eval_report.json
 eval_stdout.txt
+uploads/
+eval_report_month2.json
+policy_eval_report.json
+exceptions.csv
+fraud_eval_report.json
+fraud_eval_report_images.json
+rag_eval_report.json
+trajectory_eval_report.json
+rendered_invoices/
+trajectory_pages/
