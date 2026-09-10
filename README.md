@@ -186,7 +186,7 @@ uv run uvicorn verity.api.main:app --reload
 
 Postgres is only needed for persistence and the review screen's history. The evaluation commands below, and a dry run of the batch script without `--save`, don't touch the database.
 
-One thing to know before the first deploy: the test suite builds its schema on in-memory SQLite, so migrations `0002` (audit runs, findings, trace steps) and `0003` (review decisions) have not been exercised against a live Postgres. Nothing pending needs a *new* migration — `AuditRun.fields` is JSON, which is why adding the `tax` field required none — but run `uv run alembic upgrade head` against a real database once before relying on it.
+The test suite builds its schema on in-memory SQLite, so for a while migrations `0002` (audit runs, findings, trace steps) and `0003` (review decisions) had only ever run there. On 10 September 2026 all three migrations were applied to a live Postgres 16 (`docker compose up -d db`, then `uv run alembic upgrade head`) and every table was then written to and read back through the API — an upload, a reviewer decision recorded against it, and a JSON audit — so the mapping, not just the DDL, has been exercised on a real database. Note that `0001` creates the `vector` extension, so this needs the `pgvector/pgvector:pg16` image that `docker-compose.yml` specifies; a stock `postgres:16` fails on that line. Nothing pending needs a *new* migration — `AuditRun.fields` is JSON, which is why adding the `tax` field required none.
 
 Auditing a folder from the command line:
 
@@ -203,12 +203,54 @@ Key API endpoints, once the server is running:
 | Endpoint | Purpose |
 |---|---|
 | `POST /documents` | Upload one file, run it through the full audit, store and return the result |
+| `POST /audit` | The same audit, sent as JSON rather than a form. This is the one an outside agent calls — see below |
 | `GET /runs` | The queue, with a period summary |
 | `GET /runs/{run_id}` | One run in full, including the trace |
 | `GET /runs/{run_id}/pack` | The audit pack for that run |
 | `POST /runs/{run_id}/review` | Record a reviewer's decision |
 | `GET /reports/exceptions.csv` | The exception report |
 | `GET /policies` | The control library, as the API sees it |
+
+### Calling Verity from another agent
+
+Verity has a second job besides its own review screen: being the thing a coding or finance agent calls when it has an invoice and needs a defensible answer about it. Two integration paths cover the five agent products people ask about, and neither of them moves any policy logic out of the server — the agent sends a document, the same fourteen controls run, and the answer comes back with the policy wording quoted on every finding, exactly as the review screen gets it.
+
+Both paths go through `POST /audit`, which takes one document as JSON in either of two forms, exactly one per request: `content_base64` is the file itself and Verity reads it, which needs the extraction models on the server; `fields` is a reading the agent already did, which skips the models entirely and applies the controls to the numbers as given. `POST /documents` is unchanged and still there for the browser form — same audit, same stored row, the bytes just arrive differently.
+
+One thing to read carefully in the answer: on a `fields` request, the confidence score that comes back is *the caller's own*, handed straight through. It is not Verity's assessment of a reading it did not do. And a `pass` means no control objected — it is never an instruction to pay anything.
+
+**Path one, MCP.** Claude, Gemini CLI, Cursor and Codex all speak the Model Context Protocol, so one server covers four of the five.
+
+```bash
+uv run uvicorn verity.api.main:app          # the API, in one terminal
+uv run verity-mcp                           # the MCP server, over stdio
+```
+
+The MCP server is a client of the API, not a second copy of it. It does not start one, and it needs `VERITY_API_URL` to point at a running instance (default `http://127.0.0.1:8000`). It exposes exactly one tool, `audit_document`. There is no manifest file: an MCP client is configured by adding an entry to its own config, which for a stdio server means the command to run and any environment it needs. In the shape almost every client uses:
+
+```json
+{
+  "mcpServers": {
+    "verity": {
+      "command": "uv",
+      "args": ["run", "--directory", "/path/to/verity", "verity-mcp"],
+      "env": { "VERITY_API_URL": "http://127.0.0.1:8000" }
+    }
+  }
+}
+```
+
+**Path two, an OpenAPI schema.** ChatGPT's consumer product integrates through Custom GPT Actions rather than MCP, which means it wants a schema, not a server:
+
+```bash
+uv run scripts/export_openapi.py --out openapi.json --server https://verity.example.com
+```
+
+The schema is generated from the app's own routes, so it cannot describe an endpoint that does not exist. The one thing it cannot infer is the URL an Action will call — that has to be reachable from ChatGPT, which localhost is not — so pass `--server`, or set `VERITY_PUBLIC_URL`. The operation a Custom GPT calls is `audit_document`. Nothing in this repo hosts that URL for you or puts authentication in front of it; deployment is yours.
+
+**What was actually tested, and what was not.** The MCP server starts over stdio, completes the protocol handshake and advertises `audit_document` with a valid input schema; a tool call round-trips through a live `uvicorn` to a live Postgres and comes back with the verdict, the findings and the quoted policy text. The exported schema validates against the OpenAPI specification (3.1.0). Both are covered by `tests/test_integrations.py`, which drives the reference MCP client from the SDK in-process.
+
+That is a check against the standards, not against the products. **This has never been run inside a Claude, Gemini CLI, Cursor, Codex or ChatGPT session.** The claim being made is that the server is MCP-standard and the schema is OpenAPI-valid, so a client that implements either should be able to call it — not that any of those five have been observed doing so. If you are the first to point one at it, expect the usual first-connection friction, and file what you hit.
 
 Optional extras, both off by default and neither on the decision path:
 
