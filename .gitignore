@@ -16,3 +16,5 @@ rag_eval_report.json
 trajectory_eval_report.json
 rendered_invoices/
 trajectory_pages/
+# generated from the app's own routes; never hand-edited
+openapi.json
