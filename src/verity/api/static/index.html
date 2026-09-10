@@ -1,0 +1,208 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Verity review queue</title>
+<style>
+  :root {
+    --ink: #16191d; --muted: #666f7a; --line: #e2e6ea; --bg: #f7f8fa;
+    --high: #b3261e; --medium: #8a5a00; --low: #4a5568; --pass: #1b6e3c;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.5 -apple-system, "Segoe UI", system-ui, sans-serif;
+         color: var(--ink); background: var(--bg); }
+  header { background: #fff; border-bottom: 1px solid var(--line); padding: 18px 28px; }
+  h1 { margin: 0; font-size: 19px; letter-spacing: -0.01em; }
+  header p { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+  main { padding: 24px 28px; max-width: 1100px; }
+  section { background: #fff; border: 1px solid var(--line); border-radius: 8px;
+            padding: 18px 20px; margin-bottom: 20px; }
+  h2 { margin: 0 0 12px; font-size: 14px; text-transform: uppercase;
+       letter-spacing: 0.06em; color: var(--muted); }
+  .totals { display: flex; gap: 28px; flex-wrap: wrap; }
+  .totals div { min-width: 90px; }
+  .totals b { display: block; font-size: 26px; font-weight: 600; }
+  .totals span { color: var(--muted); font-size: 13px; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line);
+           vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: 12px;
+       text-transform: uppercase; letter-spacing: 0.04em; }
+  tr.run { cursor: pointer; }
+  tr.run:hover { background: #fafbfc; }
+  .tag { display: inline-block; padding: 1px 7px; border-radius: 20px;
+         font-size: 12px; font-weight: 600; border: 1px solid currentColor; }
+  .blocked { color: var(--high); } .review { color: var(--medium); }
+  .pass { color: var(--pass); }
+  .rules { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+  .detail { background: #fbfcfd; }
+  .finding { border-left: 3px solid var(--line); padding: 6px 0 6px 12px; margin: 10px 0; }
+  .finding.high { border-color: var(--high); }
+  .finding.medium { border-color: var(--medium); }
+  .finding.low { border-color: var(--low); }
+  .finding b { font-size: 14px; }
+  .finding p { margin: 3px 0; }
+  .quote { color: var(--muted); font-size: 13px; font-style: italic; }
+  .drop { border: 2px dashed var(--line); border-radius: 8px; padding: 26px;
+          text-align: center; color: var(--muted); background: #fff; }
+  .drop.over { border-color: var(--pass); color: var(--ink); }
+  button { font: inherit; padding: 7px 14px; border-radius: 6px;
+           border: 1px solid var(--line); background: #fff; cursor: pointer; }
+  button:hover { background: #f2f4f6; }
+  input[type=text] { font: inherit; padding: 7px 10px; border: 1px solid var(--line);
+                     border-radius: 6px; }
+  .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+  .empty { color: var(--muted); padding: 18px 0; }
+  a { color: inherit; }
+</style>
+
+<header>
+  <h1>Verity</h1>
+  <p>Every document, every control, every decision. Nothing is approved here without a name against it.</p>
+</header>
+
+<main>
+  <section>
+    <h2>Submit</h2>
+    <div class="drop" id="drop">
+      Drop an invoice or receipt here, or <label style="text-decoration:underline;cursor:pointer">
+      choose a file<input type="file" id="file" hidden></label>.
+    </div>
+    <p id="status" class="empty"></p>
+  </section>
+
+  <section>
+    <h2>This period</h2>
+    <div class="totals" id="totals"><span class="empty">Nothing audited yet.</span></div>
+    <div class="row">
+      <button onclick="load()">Refresh</button>
+      <a href="/reports/exceptions.csv"><button>Download exception report</button></a>
+    </div>
+  </section>
+
+  <section>
+    <h2>Queue</h2>
+    <table>
+      <thead>
+        <tr><th>Document</th><th>Supplier</th><th>Amount</th><th>Date</th>
+            <th>Verdict</th><th>Controls</th><th>Reviewed</th></tr>
+      </thead>
+      <tbody id="rows"><tr><td colspan="7" class="empty">Nothing audited yet.</td></tr></tbody>
+    </table>
+  </section>
+</main>
+
+<script>
+const byId = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, c =>
+  ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+async function load() {
+  const res = await fetch("/runs?limit=100");
+  const data = await res.json();
+  renderTotals(data.summary);
+  renderRows(data.runs);
+}
+
+function renderTotals(summary) {
+  const v = summary.by_verdict || {};
+  const cell = (n, label) => "<div><b>" + (n || 0) + "</b><span>" + label + "</span></div>";
+  byId("totals").innerHTML =
+    cell(summary.documents, "audited") +
+    cell(v.blocked, "blocked") +
+    cell(v.review, "needs review") +
+    cell(v.pass, "cleared") +
+    cell(summary.reviewer_overrides, "overrides");
+}
+
+function renderRows(runs) {
+  if (!runs.length) {
+    byId("rows").innerHTML =
+      '<tr><td colspan="7" class="empty">Nothing audited yet.</td></tr>';
+    return;
+  }
+  byId("rows").innerHTML = runs.map(r => {
+    const f = r.fields || {};
+    const rules = r.findings.map(x => x.rule_id).join(" ") || "&mdash;";
+    const reviewed = r.review ? esc(r.review.decision) : "&mdash;";
+    return '<tr class="run" onclick="toggle(this,\'' + esc(r.run_id) + '\')">' +
+      "<td>" + esc(r.filename) + "</td>" +
+      "<td>" + (esc(f.vendor) || "&mdash;") + "</td>" +
+      "<td>" + (esc(f.total) || "&mdash;") + "</td>" +
+      "<td>" + (esc(f.date) || "&mdash;") + "</td>" +
+      '<td><span class="tag ' + esc(r.verdict) + '">' + esc(r.verdict) + "</span></td>" +
+      '<td class="rules">' + rules + "</td>" +
+      "<td>" + reviewed + "</td></tr>";
+  }).join("");
+}
+
+async function toggle(row, runId) {
+  const next = row.nextElementSibling;
+  if (next && next.classList.contains("detail")) { next.remove(); return; }
+  const run = await (await fetch("/runs/" + runId)).json();
+  const tr = document.createElement("tr");
+  tr.className = "detail";
+  tr.innerHTML = '<td colspan="7">' + detailHtml(run) + "</td>";
+  row.after(tr);
+}
+
+function detailHtml(run) {
+  const findings = run.findings.length
+    ? run.findings.map(f =>
+        '<div class="finding ' + esc(f.severity) + '">' +
+        "<b>" + esc(f.rule_id) + " &mdash; " + esc(f.policy_title) + "</b>" +
+        "<p>" + esc(f.message) + "</p>" +
+        '<p class="quote">' + esc(f.policy_text) + "</p></div>").join("")
+    : '<p class="empty">No control fired on this document.</p>';
+
+  const steps = (run.trace || []).map(s =>
+    s.index + ". " + esc(s.tool) + " (" + Math.round(s.duration_ms) + " ms)" +
+    (s.ok ? "" : " &mdash; failed")).join("<br>");
+
+  return findings +
+    '<div class="row">' +
+    '<input type="text" id="who-' + run.run_id + '" placeholder="Your name">' +
+    '<input type="text" id="why-' + run.run_id +
+    '" placeholder="Reason" style="flex:1;min-width:200px">' +
+    '<button onclick="decide(\'' + run.run_id + '\',\'approved\')">Approve</button>' +
+    '<button onclick="decide(\'' + run.run_id + '\',\'rejected\')">Reject</button>' +
+    '<button onclick="decide(\'' + run.run_id +
+    '\',\'needs_info\')">Ask for more</button></div>' +
+    '<p class="quote" style="margin-top:14px">What the agent did: ' +
+    (steps || "no steps recorded") + "</p>";
+}
+
+async function decide(runId, decision) {
+  const reviewer = byId("who-" + runId).value.trim();
+  if (!reviewer) { alert("A decision needs a name against it."); return; }
+  await fetch("/runs/" + runId + "/review", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ decision, reviewer, rationale: byId("why-" + runId).value || null }),
+  });
+  load();
+}
+
+async function upload(file) {
+  byId("status").textContent = "Reading " + file.name + "...";
+  const body = new FormData();
+  body.append("file", file);
+  const res = await fetch("/documents", { method: "POST", body });
+  if (!res.ok) { byId("status").textContent = "Upload failed: " + res.status; return; }
+  const run = await res.json();
+  byId("status").textContent = file.name + ": " + run.verdict;
+  load();
+}
+
+const drop = byId("drop");
+drop.addEventListener("dragover", e => { e.preventDefault(); drop.classList.add("over"); });
+drop.addEventListener("dragleave", () => drop.classList.remove("over"));
+drop.addEventListener("drop", e => {
+  e.preventDefault();
+  drop.classList.remove("over");
+  if (e.dataTransfer.files[0]) upload(e.dataTransfer.files[0]);
+});
+byId("file").addEventListener("change", e => {
+  if (e.target.files[0]) upload(e.target.files[0]);
+});
+
+load();
+</script>
