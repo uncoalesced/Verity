@@ -6,6 +6,7 @@ from pypdf import PdfWriter
 
 from verity.ingestion.router import ACCEPTED, IMAGE, PDF, REJECTED, route, sniff_format
 
+
 def write(tmp_path, name, data):
     path = tmp_path / name
     path.write_bytes(data)
