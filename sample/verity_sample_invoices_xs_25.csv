@@ -1,0 +1,26 @@
+invoice_id,vendor_name,vendor_gstin,invoice_date,due_date,submitted_date,po_number,department,approver,submission_channel,currency,subtotal,tax_rate_pct,tax_amount,total_amount,payment_terms_days,bank_account_last4,ocr_confidence,is_duplicate,fraud_type,is_fraudulent,notes
+INV-2024-000001,Northgate Print Hub,37LPDRV5768F1Z8,2024-08-07,2024-09-21,2024-08-12,PO-2024-5189,Marketing,M. Krishnan,edi_feed,USD,228103.96,0,0.0,228103.96,45,8595,0.903,False,none,False,
+INV-2025-000002,Apex Manpower Agency,05BONDW0182N1Z8,2025-09-06,2025-10-21,2025-09-09,PO-2025-3636,Legal,N. Bhatt,edi_feed,INR,170513.29,0,0.0,170513.29,45,8269,0.959,False,none,False,
+INV-2024-000003,Orion Cloud Systems,30AYLOY8121U1Z2,2024-10-16,2024-11-15,2024-10-16,PO-2024-7173,Procurement,A. Iyer,scanned_mail,INR,473870.5,18,85296.69,559167.19,30,3452,0.96,False,none,False,
+INV-2025-000004,Sundaram Motors Spares,28LJZCT4875T1Z3,2025-01-13,2025-02-27,2025-01-15,PO-2025-8495,Admin,R. Menon,vendor_portal,USD,238199.58,10,23819.96,262019.54,45,4241,0.944,False,none,False,
+INV-2024-000005,Yamuna Water Solutions,12PCKZS1320S1Z1,2024-03-04,2024-04-03,2024-03-09,PO-2024-5439,Admin,P. Nair,vendor_portal,USD,415524.74,0,0.0,415524.74,30,1195,0.986,False,none,False,
+INV-2024-000006,Orion Cloud Systems,19APUJG0180J1Z0,2024-10-18,2024-11-17,2024-10-20,PO-2026-2529,Admin,A. Iyer,scanned_mail,INR,473870.5,18,85296.69,559167.19,30,7813,0.966,True,duplicate_invoice,True,Same vendor/amount seen on a prior invoice within 10 days.
+INV-2026-000007,Horizon Facilities Mgmt,10JBBCD5518V1Z1,2026-04-17,2026-05-02,2026-04-19,PO-2026-6028,Marketing,K. Reddy,email,INR,215770.46,12,25892.46,241662.92,15,1245,0.987,False,none,False,
+INV-2026-000008,Deccan Electricals,05UFBYT7877F1Z6,2026-04-14,2026-04-29,2026-04-14,PO-2026-9187,Marketing,M. Krishnan,email,INR,340101.28,28,95228.36,435329.64,15,0979,0.905,False,none,False,
+INV-2025-000009,Jyothi Print & Design,29BQTJU9528W1Z3,2025-07-06,2025-08-05,2025-07-07,PO-2025-7233,Operations,T. Rao,edi_feed,INR,37745.94,28,10568.86,48314.8,30,2264,0.909,False,none,False,
+INV-2024-000010,Lotus Catering Services,22HPVWJ8267Q1Z0,2024-06-14,2024-08-13,2024-06-14,PO-2024-4789,Operations,S. Kulkarni,edi_feed,USD,156384.25,6,9383.06,165767.31,60,4279,0.97,False,none,False,
+INV-2026-000011,Tejas Security Services,03BLMBU3003C1Z0,2026-08-25,2026-10-09,2026-08-28,PO-2026-5211,Finance,S. Kulkarni,email,INR,452103.16,0,0.0,452103.16,45,7940,0.995,False,none,False,
+INV-2026-000012,Deccan Electricals,37ZNWGJ4937E1Z1,2026-04-20,2026-05-20,2026-04-21,PO-2024-9491,Finance,R. Menon,scanned_mail,INR,340101.28,28,95228.36,435329.64,30,9228,0.913,True,duplicate_invoice,True,Same vendor/amount seen on a prior invoice within 10 days.
+INV-2026-000013,Orion Cloud Systems,37WXEZV5750J1Z2,2026-06-09,2026-08-08,2026-06-13,PO-2026-1989,Marketing,D'Souza,scanned_mail,INR,262577.52,12,31509.3,294086.82,60,4546,0.949,False,none,False,
+INV-2025-000014,Udupi Fresh Foods,27PYFUS3369V1Z1,2025-07-01,2025-07-31,2025-07-03,PO-2025-1409,Admin,S. Kulkarni,email,INR,445440.55,18,80179.3,525619.85,30,7041,0.913,False,none,False,
+INV-2026-000015,Sundaram Motors Spares,35QVVHZ0045N1Z7,2026-08-14,2026-09-13,2026-08-14,PO-2026-1422,Logistics,D'Souza,email,USD,263442.87,6,15806.57,279249.44,30,5612,0.957,False,none,False,
+INV-2026-000016,Sundaram Motors Spares,22EGYZK2370C1Z1,2026-01-23,2026-03-09,2026-01-25,PO-2026-1414,Operations,S. Kulkarni,edi_feed,INR,107971.58,12,12956.59,120928.17,45,5780,0.991,False,none,False,
+INV-2025-000017,Chola Office Supplies,11EORIF7572K1Z6,2025-01-10,2025-02-24,2025-01-11,PO-2025-6615,HR,T. Rao,edi_feed,INR,401760.12,28,112492.83,514252.95,45,9300,0.919,False,weekend_submission,True,Submitted outside business hours/days with no prior pattern for this vendor.
+INV-2025-000018,Aravind Steel Traders,26QDSKB3893Y1Z9,2025-04-08,2025-05-08,2025-04-09,PO-2025-4976,Procurement,S. Kulkarni,vendor_portal,INR,12122.88,12,1454.75,13577.63,30,3796,0.905,False,none,False,
+INV-2024-000019,Kaveri Industrial Parts,14JIOJL7991R1Z8,2024-07-21,2024-09-04,2024-07-21,PO-2024-3432,IT,M. Krishnan,vendor_portal,INR,247373.6,0,0.0,247373.6,45,5382,0.911,False,none,False,
+INV-2025-000020,Meridian Consulting Group,34JVACV3150W1Z2,2025-05-13,2025-06-27,2025-05-14,PO-2025-3589,Operations,R. Menon,email,INR,317509.87,5,15875.49,333385.36,45,8596,0.95,False,none,False,
+INV-2026-000021,Jyothi Print & Design,37UHXDJ9645Z1Z4,2026-06-22,2026-07-07,2026-06-24,PO-2026-4945,Procurement,A. Iyer,scanned_mail,INR,22361.04,5,1118.05,23479.09,15,5644,0.978,False,none,False,
+INV-2025-000022,Horizon Facilities Mgmt,04FPQII7857R1Z1,2025-02-19,2025-04-20,2025-02-22,PO-2025-7153,Finance,P. Nair,edi_feed,INR,126231.34,5,6311.57,132542.91,60,7767,0.903,False,none,False,
+INV-2026-000023,Jyothi Print & Design,21ERHNS8281S1Z4,2026-01-15,2026-01-30,2026-01-15,PO-2026-9556,Operations,K. Reddy,email,INR,423531.69,12,50823.8,474355.49,15,6017,0.929,False,none,False,
+INV-2024-000024,Vishwa Engineering Works,25AAMBI9976L1Z6,2024-12-24,2025-01-08,2024-12-24,PO-2024-8270,IT,M. Krishnan,scanned_mail,INR,160096.29,28,44826.96,204923.25,15,5395,0.907,False,none,False,
+INV-2025-000025,Ganga Freight Services,33KYHJJ9970Q1Z3,2025-02-17,2025-03-19,2025-02-17,PO-2025-8411,Operations,D'Souza,edi_feed,INR,81256.49,12,9750.78,91007.27,30,5258,0.92,False,none,False,
