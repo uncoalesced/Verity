@@ -1,7 +1,7 @@
 [project]
 name = "verity"
-version = "0.1.0"
-description = "Agentic multimodal document-compliance auditor (Month 1: ingestion + extraction + eval)"
+version = "0.3.0"
+description = "Agentic multimodal document-compliance auditor (ingestion, extraction, agent loop, policy engine)"
 requires-python = ">=3.11"
 dependencies = [
     "sqlalchemy>=2.0",
@@ -17,10 +17,27 @@ dependencies = [
     "protobuf>=4.25",
     "datasets>=2.20",
     "pandas>=2.2",
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.30",
+    "python-multipart>=0.0.9",  # FastAPI needs it to accept file uploads
+    "anthropic>=0.40",
+    "langgraph>=0.2",
+]
+
+[project.optional-dependencies]
+obs = [
+    "langfuse>=3.0",
+]
+ragas = [
+    # Held below 0.4: langchain-community 0.4 dropped chat_models.vertexai, which
+    # ragas 0.4.3 still imports at module scope -- bumping either reintroduces an
+    # ImportError on `import ragas` with nothing in the traceback to explain why.
+    "langchain-community<0.4",
+    "ragas>=0.2",
 ]
 
 [dependency-groups]
-dev = ["pytest>=8.0"]
+dev = ["pytest>=8.0", "ruff>=0.16", "httpx>=0.27"]  # httpx backs fastapi.testclient
 
 [build-system]
 requires = ["hatchling"]
@@ -31,3 +48,32 @@ packages = ["src/verity"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+
+[tool.ruff.lint]
+# EXE002 flags every file as "executable with no shebang" on this checkout's
+# filesystem regardless of content -- a mount artifact, not a lint finding.
+# DTZ011 (naive date.today()) is the deliberate convention throughout the
+# policy engine: AuditContext.today is a naive local date on purpose, so an
+# audit can be re-run against the date it was originally performed.
+# FURB157 wants Decimal(200) over Decimal("200"); the codebase always quotes
+# money literals so a stray float slip is a lint error, not silent precision
+# loss -- keep the quotes.
+# SIM905 wants the STOPWORDS block as a giant single-line list literal;
+# the wrapped string reads as prose and is what a reviewer actually edits.
+# UP017 (datetime.UTC alias) is left off: this file must keep working on
+# whatever 3.11+ interpreter runs it, and dt.timezone.utc has no version
+# footguns to reason about.
+# DTZ007 (strptime without %z) is deliberate in extraction/schema.py: a date
+# printed on a receipt carries no timezone, and inventing one would move
+# transactions across period boundaries.
+ignore = ["EXE002", "DTZ007", "DTZ011", "FURB157", "SIM905", "UP017"]
+
+[tool.ruff.lint.per-file-ignores]
+# B008 is FastAPI's dependency-injection idiom, not a mutable-default bug:
+# Depends() and File() are evaluated once at import and are what make the
+# session and toolbox swappable in tests.
+"src/verity/api/main.py" = ["B008"]
