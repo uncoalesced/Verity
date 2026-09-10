@@ -22,6 +22,10 @@ dependencies = [
     "python-multipart>=0.0.9",  # FastAPI needs it to accept file uploads
     "anthropic>=0.40",
     "langgraph>=0.2",
+    # The MCP server and its HTTP client. 2.x, not 1.x: FastMCP was renamed
+    # to MCPServer and the tool decorator moved with it.
+    "mcp>=2.2",
+    "httpx>=0.27",  # the MCP server calls the API over it; also backs fastapi.testclient
 ]
 
 [project.optional-dependencies]
@@ -37,7 +41,19 @@ ragas = [
 ]
 
 [dependency-groups]
-dev = ["pytest>=8.0", "ruff>=0.16", "httpx>=0.27"]  # httpx backs fastapi.testclient
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.16",
+    # Checks the exported schema against the OpenAPI specification rather than
+    # against our own idea of it. Test-only; nothing ships needing it.
+    "openapi-spec-validator>=0.7",
+]
+
+[project.scripts]
+# The MCP client config in the README points at this. A console script rather
+# than a module path so the command in a client's config file stays stable if
+# the module ever moves.
+verity-mcp = "verity.mcp_server:main"
 
 [build-system]
 requires = ["hatchling"]
