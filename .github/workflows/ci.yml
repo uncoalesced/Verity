@@ -33,7 +33,7 @@ jobs:
         run: uv run ruff check src tests scripts
 
       - name: Tests
-        run: uv run pytest -q
+        run: uv run python -m pytest -q
 
       # The evaluations below are deterministic and need no model, no API key
       # and no database, so they belong in every run rather than in a nightly
