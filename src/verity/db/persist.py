@@ -1,3 +1,4 @@
+# Engineered by uncoalesced
 """Writing an audit down.
 
 `run_audit` produces an `AuditResult` in memory. This module is the one place

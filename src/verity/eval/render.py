@@ -1,3 +1,4 @@
+# Engineered by uncoalesced
 """Turn a labelled row into a page a camera could have produced.
 
 The fraud corpus is structured rows. The pipeline reads pictures. Something has

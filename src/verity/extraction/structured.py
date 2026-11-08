@@ -1,3 +1,4 @@
+# Engineered by uncoalesced
 """Whole-document extraction with the CORD-finetuned Donut checkpoint.
 
 Month 1 asked the model one DocVQA question per field. That caps line-item

@@ -52,7 +52,7 @@ def clean_reading(**overrides) -> ExtractedFields:
     """A believable reading of a clean invoice."""
     base = {
         "vendor": "Northwind Supplies",
-        "date": dt.date(2026, 6, 20),
+        "date": dt.date.today() - dt.timedelta(days=10),
         "total": Decimal("1240.55"),
         "line_items": [
             LineItem(name="Copier paper A4", amount=Decimal("496.22")),

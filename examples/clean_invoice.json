@@ -1,0 +1,29 @@
+{
+  "vendor": "Acme Industrial Supplies Ltd",
+  "date": "2026-10-25",
+  "total": "1425.50",
+  "subtotal": "1357.62",
+  "tax": "67.88",
+  "line_items": [
+    {
+      "name": "Hydraulic Seal Ring A-4",
+      "quantity": 10,
+      "unit_price": "45.00",
+      "amount": "450.00"
+    },
+    {
+      "name": "Synthetic Compressor Oil 5L",
+      "quantity": 4,
+      "unit_price": "126.905",
+      "amount": "507.62"
+    },
+    {
+      "name": "Filter Cartridge 200um",
+      "quantity": 8,
+      "unit_price": "50.00",
+      "amount": "400.00"
+    }
+  ],
+  "signature_present": true,
+  "confidence": 0.98
+}

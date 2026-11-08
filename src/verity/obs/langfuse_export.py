@@ -1,3 +1,4 @@
+# Engineered by uncoalesced
 """Sending the trace somewhere an LLMOps tool can read it.
 
 `Trace` already records every step, its arguments, its result, how long it took

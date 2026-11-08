@@ -1,3 +1,4 @@
+# Engineered by uncoalesced
 from verity.db.models import AuditRun, Base, Document, Extraction, Finding, TraceStep
 from verity.db.session import SessionLocal, engine
 

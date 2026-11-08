@@ -1,3 +1,4 @@
+# Engineered by uncoalesced
 """The same audit, expressed as a graph.
 
 `loop.py` runs the audit as a straight-line function. This runs it as a

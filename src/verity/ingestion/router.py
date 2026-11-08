@@ -1,3 +1,4 @@
+# Engineered by uncoalesced
 """Ingestion trust boundary.
 
 Files arrive from users, so nothing here assumes well-formed input: every check

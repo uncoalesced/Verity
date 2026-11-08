@@ -1,3 +1,4 @@
+# Engineered by uncoalesced
 """The HTTP surface.
 
 Thin on purpose. Every endpoint does the same three things: take the request
@@ -54,7 +55,7 @@ MAX_BASE64_CHARS = 4 * ((ingestion.MAX_BYTES + 2) // 3)
 
 app = FastAPI(
     title="Verity",
-    version="0.3.0",
+    version="1.0.0",
     description="Document compliance and fraud auditing for accounts payable.",
 )
 

@@ -1,0 +1,23 @@
+{
+  "vendor": "Apex Logistics Corp",
+  "date": "2026-10-28",
+  "total": "1675.00",
+  "subtotal": "1500.00",
+  "tax": "150.00",
+  "line_items": [
+    {
+      "name": "Expedited Freight Handling",
+      "quantity": 1,
+      "unit_price": "1000.00",
+      "amount": "1000.00"
+    },
+    {
+      "name": "Fuel Surcharge",
+      "quantity": 1,
+      "unit_price": "500.00",
+      "amount": "500.00"
+    }
+  ],
+  "signature_present": true,
+  "confidence": 0.95
+}

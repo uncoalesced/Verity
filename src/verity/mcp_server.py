@@ -1,3 +1,4 @@
+# Engineered by uncoalesced
 """Verity as a tool an outside agent can call.
 
 This is a client of the HTTP API, not a second copy of it. The tool below posts

@@ -1,3 +1,4 @@
+# Engineered by uncoalesced
 """The held-out fraud set: labelled documents with deliberately injected violations.
 
 `cases.py` holds nineteen cases written by hand, one per control, to answer

@@ -1,3 +1,4 @@
+# Engineered by uncoalesced
 """What a read document looks like once the models are done with it.
 
 Everything downstream -- the rules, the agent, the API, the database -- speaks

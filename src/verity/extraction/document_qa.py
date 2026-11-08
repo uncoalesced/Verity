@@ -1,3 +1,4 @@
+# Engineered by uncoalesced
 """Document QA with Donut -- OCR-free, reads the page image and its layout directly.
 
 One model, one task. Swap models by changing MODEL_ID.

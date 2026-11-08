@@ -1,3 +1,4 @@
+# Engineered by uncoalesced
 """The checks themselves.
 
 Every rule in `RULES` runs on every document. There is no retrieval step, no

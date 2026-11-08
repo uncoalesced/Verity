@@ -1,3 +1,4 @@
+# Engineered by uncoalesced
 """What the agent is allowed to do.
 
 The loop never calls a model or the database directly. It calls tools out of a

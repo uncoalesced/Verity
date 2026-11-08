@@ -1,3 +1,4 @@
+# Engineered by uncoalesced
 """CORD loader.
 
 CORD-v2 covers both receipt-level fields and line-item tables, so it exercises

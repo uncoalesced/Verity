@@ -1,3 +1,4 @@
+# Engineered by uncoalesced
 """Search over the control library.
 
 Retrieval is deliberately *not* in the enforcement path. Every rule in

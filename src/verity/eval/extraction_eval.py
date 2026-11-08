@@ -1,3 +1,4 @@
+# Engineered by uncoalesced
 """Field-level precision/recall for the extraction stack against CORD.
 
 Micro-averaged over documents. Scalar fields (vendor, total, date) score one

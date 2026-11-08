@@ -1,3 +1,4 @@
+# Engineered by uncoalesced
 """The one place Verity talks to a language model.
 
 Everything else in the system is deterministic on purpose -- the rules, the

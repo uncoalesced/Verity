@@ -1,3 +1,4 @@
+# Engineered by uncoalesced
 """What a model call cost, in tokens and in money.
 
 A deterministic pipeline has no per-token cost, which is why this module did not

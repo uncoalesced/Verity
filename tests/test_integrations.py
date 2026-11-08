@@ -12,6 +12,7 @@ here is the reference client from the SDK, connected in-process.
 """
 
 import base64
+import datetime as dt
 import json
 
 import anyio
@@ -33,7 +34,7 @@ UNSIGNED_FIELDS = {"total": "4820.75", "signature_present": False}
 
 CLEAN_FIELDS = {
     "vendor": "Northwind Supplies",
-    "date": "2026-06-20",
+    "date": (dt.date.today() - dt.timedelta(days=10)).isoformat(),
     "total": "1240.55",
     "line_items": [
         {"name": "Copier paper A4", "amount": "496.22"},

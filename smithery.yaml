@@ -1,0 +1,11 @@
+# Smithery configuration for Verity MCP Server
+# https://smithery.ai/docs/config
+startCommand:
+  type: stdio
+  configRoot: .
+  command: uv
+  args:
+    - run
+    - verity-mcp
+  env:
+    VERITY_API_URL: "http://127.0.0.1:8000"

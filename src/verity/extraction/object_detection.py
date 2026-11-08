@@ -1,3 +1,4 @@
+# Engineered by uncoalesced
 """Signature / stamp presence with YOLOS.
 
 Optional for Month 1 -- the accuracy milestone does not depend on it -- but it

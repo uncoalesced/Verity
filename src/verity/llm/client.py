@@ -1,3 +1,4 @@
+# Engineered by uncoalesced
 """Talking to Claude, with the prompt on disk and the bill on the record.
 
 Three things this wrapper is responsible for, none of them exciting and all of

@@ -1,3 +1,4 @@
+# Engineered by uncoalesced
 """The orchestrator: one document in, one audited decision out.
 
 This is the only place that knows the *order* things happen in. Every step is

@@ -1,3 +1,4 @@
+# Engineered by uncoalesced
 """SROIE loader: the vendor and date labels CORD does not have.
 
 Month 1 reported vendor and date as *unscored* rather than quietly counting them

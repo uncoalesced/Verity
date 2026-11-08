@@ -1,3 +1,4 @@
+# Engineered by uncoalesced
 """The database-backed history tool.
 
 `verity.agent.tools.Toolbox.history` defaults to a no-op -- no ledger
