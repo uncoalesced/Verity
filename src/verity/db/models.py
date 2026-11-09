@@ -55,6 +55,11 @@ class Extraction(Base):
     date: Mapped[dt.date | None] = mapped_column(Date)
     signature_present: Mapped[bool | None] = mapped_column(Boolean)
     confidence: Mapped[float | None] = mapped_column(Float)
+    # v1.1 (migration 0004): what the reused/sequential invoice-number controls,
+    # the currency-aware checks and the provenance links read.
+    invoice_number: Mapped[str | None] = mapped_column(String(128))
+    currency: Mapped[str | None] = mapped_column(String(8))
+    source_sha256: Mapped[str | None] = mapped_column(String(64))
     created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 
     document: Mapped[Document] = relationship(back_populates="extractions")

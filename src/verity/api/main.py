@@ -55,7 +55,7 @@ MAX_BASE64_CHARS = 4 * ((ingestion.MAX_BYTES + 2) // 3)
 
 app = FastAPI(
     title="Verity",
-    version="1.0.0",
+    version="1.1.0",
     description="Document compliance and fraud auditing for accounts payable.",
 )
 

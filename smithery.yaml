@@ -1,11 +1,17 @@
-# Smithery configuration for Verity MCP Server
+# Smithery configuration for the Verity MCP server (v1.1.0)
 # https://smithery.ai/docs/config
+# v1.1 runs as one native binary built from the Dockerfile: no Python, no API, no database required.
 startCommand:
   type: stdio
-  configRoot: .
-  command: uv
-  args:
-    - run
-    - verity-mcp
-  env:
-    VERITY_API_URL: "http://127.0.0.1:8000"
+  configSchema:
+    type: object
+    properties:
+      databaseUrl:
+        type: string
+        description: Optional Postgres ledger for cross-run duplicate and splitting checks. Without it those controls report not_evaluated.
+  commandFunction: |-
+    (config) => ({
+      command: "verity",
+      args: ["mcp"],
+      env: config.databaseUrl ? { DATABASE_URL: config.databaseUrl } : {}
+    })

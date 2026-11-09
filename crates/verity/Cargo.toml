@@ -1,0 +1,32 @@
+[package]
+name = "verity"
+description = "Verity: deterministic accounts-payable auditor. CLI, offline HTML reports and a fast MCP server in one binary."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+rust-version.workspace = true
+readme = "../../README.md"
+keywords = ["accounts-payable", "audit", "fraud", "mcp", "forensic"]
+categories = ["command-line-utilities", "finance"]
+
+[[bin]]
+name = "verity"
+path = "src/main.rs"
+
+[features]
+default = ["postgres", "http"]
+postgres = ["dep:postgres"]
+http = ["dep:tiny_http"]
+
+[dependencies]
+verity-core = { path = "../verity-core", version = "1.1.0" }
+serde.workspace = true
+serde_json.workspace = true
+rust_decimal.workspace = true
+chrono = { workspace = true, features = ["clock"] }
+csv = "1"
+sha2 = "0.10"
+tiny_http = { version = "0.12", optional = true }
+postgres = { version = "0.19", optional = true, features = ["with-chrono-0_4", "with-serde_json-1"] }

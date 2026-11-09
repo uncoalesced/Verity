@@ -1,6 +1,6 @@
 [project]
 name = "verity"
-version = "1.0.0"
+version = "1.1.0"
 description = "Agentic multimodal document-compliance auditor (ingestion, extraction, agent loop, policy engine)"
 requires-python = ">=3.11"
 dependencies = [
@@ -53,7 +53,7 @@ dev = [
 # The MCP client config in the README points at this. A console script rather
 # than a module path so the command in a client's config file stays stable if
 # the module ever moves.
-verity = "verity.cli:main"
+verity-py = "verity.cli:main"
 verity-mcp = "verity.mcp_server:main"
 
 [build-system]

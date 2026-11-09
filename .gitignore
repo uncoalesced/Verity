@@ -18,3 +18,8 @@ rendered_invoices/
 trajectory_pages/
 # generated from the app's own routes; never hand-edited
 openapi.json
+
+# Rust build output
+target/
+# local release-gate working file
+GATES.md

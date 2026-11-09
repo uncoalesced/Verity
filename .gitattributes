@@ -1,0 +1,2 @@
+# Hashed benchmark snapshot: bytes must survive checkout unchanged on every OS.
+data/snapshot/** -text

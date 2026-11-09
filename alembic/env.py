@@ -1,7 +1,6 @@
 from logging.config import fileConfig
 
 from alembic import context
-
 from verity.db.models import Base
 from verity.db.session import DATABASE_URL, engine
 

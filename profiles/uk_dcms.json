@@ -1,0 +1,15 @@
+{
+  "name": "UK DCMS transactions over £25,000",
+  "description": "Published monthly payments of £25,000 and above. Already filtered above any approval limit, audited after the fact, so P-009 and P-005 are off. Benford is tested from £100,000 up because the list is truncated at £25,000.",
+  "currency": "GBP",
+  "today": "2026-03-31",
+  "licence": "OGL v3.0",
+  "config": {
+    "approval_limit_enabled": false,
+    "stale_check_enabled": false,
+    "benford_floor": "25000",
+    "round_floor": "25000",
+    "round_step": "1000",
+    "approval_limit": "25000.00"
+  }
+}

@@ -19,7 +19,7 @@ from verity.extraction.schema import ExtractedFields, LineItem
 from verity.policy.library import PolicyConfig
 from verity.policy.rules import AuditContext, PriorDocument, evaluate, verdict, worst_severity
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 
 
 def _parse_fields_from_dict(data: dict) -> tuple[ExtractedFields, list[PriorDocument]]:

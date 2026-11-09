@@ -1,0 +1,12 @@
+{
+  "name": "CORD v2 receipts (ground truth)",
+  "description": "Real Indonesian receipts with human-labelled totals, subtotals, tax and line items. Used to measure arithmetic-control false alarms on genuine documents. CORD labels carry no store name or date, so P-003/P-004 fire on every receipt by construction and P-001's documentation threshold is lifted; only P-007 is meaningful here.",
+  "currency": "IDR",
+  "today": "2026-01-01",
+  "licence": "CC BY 4.0",
+  "config": {
+    "approval_limit_enabled": false,
+    "stale_check_enabled": false,
+    "receipt_required_above": "1000000000"
+  }
+}

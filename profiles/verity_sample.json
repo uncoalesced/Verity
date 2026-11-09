@@ -1,0 +1,7 @@
+{
+  "name": "Verity synthetic AP corpus",
+  "description": "The labelled fraud corpus in sample/. Same thresholds as fraud_eval.",
+  "config": {
+    "approval_limit": "50000.00"
+  }
+}

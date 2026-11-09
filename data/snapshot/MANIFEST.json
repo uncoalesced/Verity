@@ -1,0 +1,222 @@
+{
+ "fetched_at": "2026-11-09T17:22:41+00:00",
+ "datasets": {
+  "uk_dcms": {
+   "documents": 2819,
+   "licence": "Open Government Licence v3.0 - contains public sector information licensed under the OGL v3.0"
+  },
+  "usaspending": {
+   "documents": 709,
+   "licence": "Public domain (U.S. Government work), USAspending.gov"
+  },
+  "cord": {
+   "documents": 972,
+   "licence": "CC BY 4.0 - CORD: A Consolidated Receipt Dataset for Post-OCR Parsing (Park et al., 2019)"
+  }
+ },
+ "files": [
+  {
+   "path": "raw/DCMS_Transactions_over__25_000_April_2024.ods",
+   "sha256": "c723c917efcaa345a63ab8bd94fcb8eebd74348c4e24e470ac5e2c99d183ddf0",
+   "bytes": 27888,
+   "url": "https://assets.publishing.service.gov.uk/media/66586fcbdc15efdddf1a8575/DCMS_Transactions_over__25_000_April_2024.ods",
+   "dataset": "uk_dcms"
+  },
+  {
+   "path": "raw/DCMS_Transactions_over__25_000_May_2024.ods",
+   "sha256": "68c78eb0a56726350acb57423748f38de1dd7773a60ae27d4af646541af01bd6",
+   "bytes": 26021,
+   "url": "https://assets.publishing.service.gov.uk/media/667d7aa04ae39c5e45fe4d54/DCMS_Transactions_over__25_000_May_2024.ods",
+   "dataset": "uk_dcms"
+  },
+  {
+   "path": "raw/DCMS_Transactions_over__25_000_June_2024.ods",
+   "sha256": "54da86a8fdb448cb30f00f0db7cbb2acc28a47a06bc5e831b218c28be1fde2df",
+   "bytes": 24565,
+   "url": "https://assets.publishing.service.gov.uk/media/66a25ace0808eaf43b50d74d/DCMS_Transactions_over__25_000_June_2024.ods",
+   "dataset": "uk_dcms"
+  },
+  {
+   "path": "raw/DCMS_Transactions_over__25_000_July_2024.ods",
+   "sha256": "387d7ce34aba4c1fc56d2fd7981e56cfc4ddefa81a3d5abcfed5a372b115f20f",
+   "bytes": 25721,
+   "url": "https://assets.publishing.service.gov.uk/media/66d05f7959b0ec2e151f84ae/DCMS_Transactions_over__25_000_July_2024.ods",
+   "dataset": "uk_dcms"
+  },
+  {
+   "path": "raw/DCMS_Transactions_over__25_000_August_2024.ods",
+   "sha256": "fc9c53280d49cfceca036aadf7c261935582c70c23b6bc860a7bb9e724a10293",
+   "bytes": 33159,
+   "url": "https://assets.publishing.service.gov.uk/media/66ffc8eca31f45a9c765f138/DCMS_Transactions_over__25_000_August_2024.ods",
+   "dataset": "uk_dcms"
+  },
+  {
+   "path": "raw/DCMS_Transactions_over__25_000_September_2024.ods",
+   "sha256": "5cf71ba6ef26a899547ff7f204cbe855c23569c6d43e4b0a850523e07adb782f",
+   "bytes": 31970,
+   "url": "https://assets.publishing.service.gov.uk/media/675701b4a63e1781efb877c1/DCMS_Transactions_over__25_000_September_2024.ods",
+   "dataset": "uk_dcms"
+  },
+  {
+   "path": "raw/DCMS_Transactions_over__25_000_October_2024.ods",
+   "sha256": "eaff8e0e03eca9cb450330200a5e80011a41c64aa5f7865903cdec17cc3c6205",
+   "bytes": 32019,
+   "url": "https://assets.publishing.service.gov.uk/media/67ed4c8a199d1cd55b48c6a1/DCMS_Transactions_over__25_000_October_2024.ods",
+   "dataset": "uk_dcms"
+  },
+  {
+   "path": "raw/DCMS_Transactions_over__25_000_November_2024.ods",
+   "sha256": "ccd6f7e99dd611792a507a83a6324ebbc5e82cdad289f8c6a538148715e75f24",
+   "bytes": 31159,
+   "url": "https://assets.publishing.service.gov.uk/media/6765810bcdb5e64b69e30960/DCMS_Transactions_over__25_000_November_2024.ods",
+   "dataset": "uk_dcms"
+  },
+  {
+   "path": "raw/DCMS_Transactions_over__25_000_December_2024.ods",
+   "sha256": "266bd50de22054f8754a93008de3c5b2655b2c1182a89ef6e99c818b8509bede",
+   "bytes": 33328,
+   "url": "https://assets.publishing.service.gov.uk/media/679c9fdda9ee53687470a2ec/DCMS_Transactions_over__25_000_December_2024.ods",
+   "dataset": "uk_dcms"
+  },
+  {
+   "path": "raw/DCMS_Transactions_over__25_000_January_2025.ods",
+   "sha256": "fd77968e6987ae9b30594c170c58b6dfffaa6b4dc776c1aff38792b7d8e01462",
+   "bytes": 35108,
+   "url": "https://assets.publishing.service.gov.uk/media/67c0834072e83aab48866bf7/DCMS_Transactions_over__25_000_January_2025.ods",
+   "dataset": "uk_dcms"
+  },
+  {
+   "path": "raw/DCMS_Transactions_over__25_000_February_2025.ods",
+   "sha256": "5b60ebc7dc0d01a8221406f15f3648d032400241059d0610adde72baee46bdac",
+   "bytes": 34145,
+   "url": "https://assets.publishing.service.gov.uk/media/67e66d64085277e9961b1fe8/DCMS_Transactions_over__25_000_February_2025.ods",
+   "dataset": "uk_dcms"
+  },
+  {
+   "path": "raw/DCMS_Transactions_over__25_000_March_2025.ods",
+   "sha256": "ce6ff2b6483280204ccac3c37df4014a0d7e130f70bf494fc85b25bd9ffe6e0a",
+   "bytes": 40043,
+   "url": "https://assets.publishing.service.gov.uk/media/681b3015275cb67b18d86fd7/DCMS_Transactions_over__25_000_March_2025.ods",
+   "dataset": "uk_dcms"
+  },
+  {
+   "path": "raw/DCMS_Transactions_over__25_000_April_2025.ods",
+   "sha256": "7f573e4eccb3069c89fab2222f12af4c1c33977f4cf4e5331568258eda9a4876",
+   "bytes": 33197,
+   "url": "https://assets.publishing.service.gov.uk/media/6849a70238cd4b88e2c7db4a/DCMS_Transactions_over__25_000_April_2025.ods",
+   "dataset": "uk_dcms"
+  },
+  {
+   "path": "raw/DCMS_Transactions_over__25_000_May_2025.ods",
+   "sha256": "1e528e0d9465caff19b7f85e3a80b880e04dc4051174b5501ebcb99ab1a732e8",
+   "bytes": 32465,
+   "url": "https://assets.publishing.service.gov.uk/media/686e4f30fe1a249e937cbe8e/DCMS_Transactions_over__25_000_May_2025.ods",
+   "dataset": "uk_dcms"
+  },
+  {
+   "path": "raw/DCMS_Transactions_over__25_000_June_2025.ods",
+   "sha256": "4f5bac131244608276c1d81a6a54cdcc218ae3746b5f9dde75b685f7a4071b40",
+   "bytes": 15631,
+   "url": "https://assets.publishing.service.gov.uk/media/688353c5be2291b14d11aeec/DCMS_Transactions_over__25_000_June_2025.ods",
+   "dataset": "uk_dcms"
+  },
+  {
+   "path": "raw/DCMS_Transactions_over__25_000_July_2025.ods",
+   "sha256": "38cdb19fea198cac5f743525717b1c610917d91cf530023cc1c28e4e5bace4f6",
+   "bytes": 31853,
+   "url": "https://assets.publishing.service.gov.uk/media/68b964c7d723ba6f74dba9b9/DCMS_Transactions_over__25_000_July_2025.ods",
+   "dataset": "uk_dcms"
+  },
+  {
+   "path": "raw/DCMS_Transactions_over__25_000_Aug_2025.ods",
+   "sha256": "db14c70fa92fad40a2e98711266291cf43574064930e03999fe13587d0ab9a03",
+   "bytes": 31858,
+   "url": "https://assets.publishing.service.gov.uk/media/68e3956a49e17d00a56ffdf6/DCMS_Transactions_over__25_000_Aug_2025.ods",
+   "dataset": "uk_dcms"
+  },
+  {
+   "path": "raw/DCMS_Transactions_over__25_000_Sept_2025.ods",
+   "sha256": "9ef7d3a30cc58dc2dc164013f842e823b3194e9c18f6e322f54cad318de9bdc9",
+   "bytes": 31786,
+   "url": "https://assets.publishing.service.gov.uk/media/6904db7319a898f0b18980d5/DCMS_Transactions_over__25_000_Sept_2025.ods",
+   "dataset": "uk_dcms"
+  },
+  {
+   "path": "raw/DCMS_Transactions_over__25_000_Oct_2025.ods",
+   "sha256": "2b9197a85276e3b2f62f31789a578fdfac67f902345175529bef03bc1d0f261a",
+   "bytes": 33572,
+   "url": "https://assets.publishing.service.gov.uk/media/69299886ce50d215cae961f3/DCMS_Transactions_over__25_000_Oct_2025.ods",
+   "dataset": "uk_dcms"
+  },
+  {
+   "path": "raw/DCMS_Transactions_over__25_000_Nov_2025.ods",
+   "sha256": "5f8ae2bfdf60ea7962a8385c709787ec3dcaa66ffb65be4f631dd5b79fe66b28",
+   "bytes": 32950,
+   "url": "https://assets.publishing.service.gov.uk/media/696777de06fabb02127034b2/DCMS_Transactions_over__25_000_Nov_2025.ods",
+   "dataset": "uk_dcms"
+  },
+  {
+   "path": "raw/DCMS_Transactions_over__25_000_December_2025.ods",
+   "sha256": "584645e26e192ed9607efc38492e54afba89fe5fe5775858b779eef693c8c493",
+   "bytes": 32811,
+   "url": "https://assets.publishing.service.gov.uk/media/698dbe3275466636847f6a52/DCMS_Transactions_over__25_000_December_2025.ods",
+   "dataset": "uk_dcms"
+  },
+  {
+   "path": "raw/DCMS_Transactions_over__25_000_January_2026.ods",
+   "sha256": "369745e48b9e4938dc0a745afcf6ac77f8011689921e394f2fdcd3c419859343",
+   "bytes": 34896,
+   "url": "https://assets.publishing.service.gov.uk/media/69b3eee5b84f01b2be53a1e0/DCMS_Transactions_over__25_000_January_2026.ods",
+   "dataset": "uk_dcms"
+  },
+  {
+   "path": "raw/DCMS_Transactions_over__25_000_February_2026.ods",
+   "sha256": "b62efec3a42b9d1ec0638db6ef0713bf37610e0ebc3309855616ea0075bd8182",
+   "bytes": 35273,
+   "url": "https://assets.publishing.service.gov.uk/media/69ce3924626baa5dbdf387a9/DCMS_Transactions_over__25_000_February_2026.ods",
+   "dataset": "uk_dcms"
+  },
+  {
+   "path": "raw/DCMS_Transactions_over__25_000_March_2026.ods",
+   "sha256": "bc28659b5bbd6f3f333ac5dc6580953a1f340cc14f2c74d6b9020d2cb98ce6cc",
+   "bytes": 43324,
+   "url": "https://assets.publishing.service.gov.uk/media/6a070073c0cc74b4523e4ec3/DCMS_Transactions_over__25_000_March_2026.ods",
+   "dataset": "uk_dcms"
+  },
+  {
+   "path": "uk_dcms.json",
+   "sha256": "31ad4087f9b8a3698f97d5c61f450236a3801861d0691b13c29a2dd88192abda",
+   "bytes": 1166469,
+   "dataset": "uk_dcms",
+   "derived": true
+  },
+  {
+   "path": "raw/usaspending_nsf_fy2025_contract_transactions.json",
+   "sha256": "108883b5d87f2e665789bfcf233cd4031dd2c3d7d23b55a54284b33a4bcbd7ac",
+   "bytes": 328889,
+   "url": "https://api.usaspending.gov/api/v2/search/spending_by_transaction/",
+   "dataset": "usaspending"
+  },
+  {
+   "path": "usaspending.json",
+   "sha256": "b903772c886d1dab0681245769d8894f97955796b256db26e8c246f064c50589",
+   "bytes": 265684,
+   "dataset": "usaspending",
+   "derived": true
+  },
+  {
+   "path": "raw/cord_v2_ground_truth.jsonl",
+   "sha256": "ffc954236ab18177b58f330a6f925f82c6ef4371df10ffdad8d28a3e1ea95f6b",
+   "bytes": 5326669,
+   "url": "https://huggingface.co/datasets/naver-clova-ix/cord-v2",
+   "dataset": "cord"
+  },
+  {
+   "path": "cord.json",
+   "sha256": "1b0c1a336572631f4f0ac93c3beaaa1453a3922841020083cb636cbb3705f9a4",
+   "bytes": 356570,
+   "dataset": "cord",
+   "derived": true
+  }
+ ]
+}

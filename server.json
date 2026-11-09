@@ -1,0 +1,29 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
+  "name": "com.uncoalesced/verity",
+  "title": "Verity",
+  "description": "Deterministic accounts-payable auditor: 18 written controls for duplicates, splitting, arithmetic and forensic signals. Compact, token-lean results with provenance.",
+  "repository": {
+    "url": "https://github.com/uncoalesced/Verity",
+    "source": "github"
+  },
+  "websiteUrl": "https://uncoalesced.com/projects?open=verity",
+  "version": "1.1.0",
+  "packages": [
+    {
+      "registryType": "oci",
+      "identifier": "ghcr.io/uncoalesced/verity:1.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "DATABASE_URL",
+          "description": "Optional Postgres ledger for cross-run duplicate and splitting checks. Without it those controls report not_evaluated.",
+          "isRequired": false,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}

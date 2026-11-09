@@ -69,3 +69,44 @@ jobs:
             rag_eval_report.json
             trajectory_eval_report.json
           if-no-files-found: warn
+
+  # The Rust core is the verdict engine from v1.1 on. It is held to the Python
+  # engine finding-for-finding (parity), and the binary is exercised end to end:
+  # fixtures, the MCP protocol, and the injection / XSS / auth defences.
+  rust:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy, rustfmt
+      - uses: Swatinem/rust-cache@v2
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+      - run: uv sync --frozen
+      - name: Format
+        run: cargo fmt --all -- --check
+      - name: Clippy
+        run: cargo clippy --workspace --all-targets -- -D warnings
+      - name: Tests
+        run: cargo test --workspace
+      - name: The core crate has no network code
+        run: "! cargo tree -p verity-core -e normal | grep -E 'reqwest|hyper|ureq|curl|tokio'"
+      - name: Dependency advisories
+        uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-audit
+      - run: cargo audit
+      - name: Build
+        run: cargo build --release --locked
+      - name: Snapshot integrity (offline)
+        run: target/release/verity verify data/snapshot/MANIFEST.json
+      - name: Rust/Python parity, including every real row
+        run: uv run python scripts/parity.py data/snapshot/uk_dcms.json data/snapshot/usaspending.json
+      - name: Smoke (fixtures, MCP, security, versions)
+        run: uv run python scripts/smoke.py all
+      - name: Benchmark numbers still reproduce
+        run: uv run python scripts/bench.py --check

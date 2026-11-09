@@ -1,0 +1,13 @@
+{
+  "name": "USAspending contract transactions",
+  "description": "Federal contract actions (non-zero). Audited after the fact, so P-005 and P-009 are off.",
+  "currency": "USD",
+  "today": "2025-09-30",
+  "licence": "Public domain",
+  "config": {
+    "approval_limit_enabled": false,
+    "stale_check_enabled": false,
+    "round_floor": "5000",
+    "round_step": "1000"
+  }
+}
