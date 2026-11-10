@@ -21,7 +21,7 @@ dependencies = [
     "uvicorn[standard]>=0.30",
     "python-multipart>=0.0.9",  # FastAPI needs it to accept file uploads
     "anthropic>=0.40",
-    "langgraph>=0.2",
+    "langgraph>=1.2.20",
     # The MCP server and its HTTP client. 2.x, not 1.x: FastMCP was renamed
     # to MCPServer and the tool decorator moved with it.
     "mcp>=2.2",
