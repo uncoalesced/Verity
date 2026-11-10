@@ -45,7 +45,7 @@ jobs:
           fi
       - uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.target }}
+          name: verity-${{ matrix.target }}
           path: verity-*.${{ matrix.archive }}
 
   release:
@@ -56,6 +56,9 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           path: dist
+          # Only the binary archives: docker/build-push-action also stores a
+          # build record artifact that download-artifact cannot extract.
+          pattern: verity-*
           merge-multiple: true
       - name: Checksums
         run: cd dist && sha256sum verity-* > SHA256SUMS
