@@ -15,6 +15,8 @@
 
 ---
 
+<!-- mcp-name: com.uncoalesced/verity -->
+
 ## What it does, measured
 
 All of these come from [`docs/BENCHMARK.md`](docs/BENCHMARK.md). One command regenerates it from a hashed, offline snapshot of real public data: UK government payments, US federal contracts and labelled receipts.
