@@ -1,5 +1,5 @@
 [project]
-name = "verity"
+name = "verity-unc"
 version = "1.1.0"
 description = "Agentic multimodal document-compliance auditor (ingestion, extraction, agent loop, policy engine)"
 requires-python = ">=3.11"
