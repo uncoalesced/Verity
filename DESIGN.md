@@ -2,12 +2,12 @@
 
 ## The mark
 
-A ledger seen from a distance. A bracket of documents, each one a cell, with the
+A ledger seen from a distance: a bracket of documents, each one a cell, with the
 **V** of Verity picked out in pale green through the middle. Most cells are
 green (they passed), a few are amber (held for a person), a few are watermelon
 (blocked). The mark never shows a perfect ledger, because no real ledger is one.
 
-Assets are generated, not drawn: `uv run python scripts/make_assets.py` writes
+Assets are generated, not drawn. `uv run python scripts/make_assets.py` writes
 everything in `assets/` from one grid and one seed.
 
 | File | Use |
@@ -59,4 +59,4 @@ above it. System sans for running text.
 
 Plain, specific, and never louder than the evidence. Verity says what it found,
 quotes the policy, and stops. It never says "fraud". It says "held", "blocked",
-"for review". It never claims a number it did not measure.
+or "for review". It never claims a number it did not measure.

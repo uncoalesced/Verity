@@ -1,10 +1,10 @@
 # Verity roadmap
 
-## v1.1 (shipping 2026-11-09)
+## v1.1.0 (released 2026-11-09)
 
 Decisions and their reasons are in [DECISIONS_v1.1.md](DECISIONS_v1.1.md).
 
-- **Rust core** (`crates/verity-core`): field schema, the written controls, verdicts. No network, no `unsafe`. The Python controls stay in place for now, and a parity harness proves both produce identical findings.
+- **Rust core** (`crates/verity-core`): field schema, the written controls, verdicts. No network, no `unsafe`. The Python controls stay in place for now, and a parity harness checks that both produce identical findings.
 - **Native binary** (`crates/verity`): `verity audit` (one document or a whole file), `verity explain`, `verity verify`, `verity mcp` (stdio, or `--http` for private self-hosting). Single file, no Python, no API hop.
 - **Token-lean MCP**: `audit`, `audit_batch`, `explain`, `trace`. Compact by default, `verbose` on request.
 - **Forensic controls**: Benford first-digit (batch), near-duplicate, sequential and reused invoice numbers, currency-aware round amounts.
