@@ -11,7 +11,7 @@
 [![MCP](https://img.shields.io/badge/MCP-2025--06--18-1F1F1D?style=flat-square)](https://modelcontextprotocol.io)
 [![Release](https://img.shields.io/github/v/release/uncoalesced/Verity?style=flat-square&color=7FA650)](https://github.com/uncoalesced/Verity/releases)
 [![Listed on mcpservers.org](https://mcpservers.org/badge.svg)](https://mcpservers.org/servers/uncoalesced/verity)
-
+[![M8ven Score](https://m8ven.ai/badge/mcp/uncoalesced/verity)](https://m8ven.ai/mcp/uncoalesced/verity?s=readme)
 
 </div>
 
