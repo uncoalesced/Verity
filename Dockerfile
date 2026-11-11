@@ -10,7 +10,7 @@ FROM gcr.io/distroless/cc-debian12:nonroot
 LABEL org.opencontainers.image.source="https://github.com/uncoalesced/Verity" \
       org.opencontainers.image.description="Verity: deterministic accounts-payable auditor (MCP server)" \
       org.opencontainers.image.licenses="MIT" \
-      io.modelcontextprotocol.server.name="com.uncoalesced/verity"
+      io.modelcontextprotocol.server.name="io.github.uncoalesced/verity"
 COPY --from=build /src/target/release/verity /usr/local/bin/verity
 USER nonroot
 ENTRYPOINT ["/usr/local/bin/verity"]
