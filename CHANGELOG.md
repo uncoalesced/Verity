@@ -1,5 +1,19 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- Microsoft Copilot support:
+  - `verity mcp --http` now also accepts the token as `X-API-Key: <token>`, which is the header Copilot Studio's API-key mode sends. `Authorization: Bearer` still works.
+  - README setup for Microsoft 365 Copilot / Copilot Studio (self-hosted container, API-key header).
+  - Notes for Agents Toolkit declarative agents, which need Entra or OAuth in front.
+  - Install blocks for Visual Studio, JetBrains and GitHub Copilot CLI.
+
+### Security
+
+- In HTTP mode, run ids are now random 128-bit values instead of `r1`, `r2`… On a server shared by many users, nobody can `trace` someone else's run by guessing its id. The shared server keeps the last 256 runs. Stdio output is unchanged.
+
 ## v1.1.0 (2026-11-09)
 
 Verity v1.1 moves the verdict engine to Rust and ships it as one native binary

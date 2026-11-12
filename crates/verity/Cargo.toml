@@ -18,7 +18,7 @@ path = "src/main.rs"
 [features]
 default = ["postgres", "http"]
 postgres = ["dep:postgres"]
-http = ["dep:tiny_http"]
+http = ["dep:tiny_http", "dep:getrandom"]
 
 [dependencies]
 verity-core = { path = "../verity-core", version = "1.1.0" }
@@ -29,4 +29,5 @@ chrono = { workspace = true, features = ["clock"] }
 csv = "1"
 sha2 = "0.10"
 tiny_http = { version = "0.12", optional = true }
+getrandom = { version = "0.3", optional = true }
 postgres = { version = "0.19", optional = true, features = ["with-chrono-0_4", "with-serde_json-1"] }

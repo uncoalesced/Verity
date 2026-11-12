@@ -71,7 +71,7 @@ verity audit examples/arithmetic_discrepancy.json
 
 ## Use it from your agent (MCP)
 
-Each client below runs the same local binary over stdio. Nothing leaves your machine.
+Desktop and IDE clients run the same local binary over stdio, so nothing leaves your machine. Cloud assistants (Microsoft 365 Copilot, ChatGPT) reach a server you host and keep private.
 
 <details open><summary><b>Claude Code</b></summary>
 
@@ -108,6 +108,46 @@ claude mcp add verity -- verity mcp
 ```
 </details>
 
+<details><summary><b>Visual Studio / JetBrains</b> (GitHub Copilot): <code>.mcp.json</code> in the solution folder, or Copilot's MCP settings in JetBrains</summary>
+
+```json
+{ "servers": { "verity": { "type": "stdio", "command": "verity", "args": ["mcp"] } } }
+```
+</details>
+
+<details><summary><b>GitHub Copilot CLI</b>: <code>~/.copilot/mcp-config.json</code></summary>
+
+```json
+{ "mcpServers": { "verity": { "type": "local", "command": "verity", "args": ["mcp"], "tools": ["*"] } } }
+```
+</details>
+
+<details><summary><b>Microsoft 365 Copilot / Copilot Studio</b> (self-hosted, private to your tenant)</summary>
+
+Copilot runs in Microsoft's cloud, so it can't start a local program. You host one Verity container that your agents call over HTTPS. Documents are still audited only on your server.
+
+1. **Host it.** Run the container behind TLS 1.2+. Azure Container Apps ingress gives you that:
+
+   ```bash
+   docker run -e VERITY_HTTP_TOKEN=<32+ random chars> -p 8765:8765 ghcr.io/uncoalesced/verity:1.1.0 mcp --http 0.0.0.0:8765
+   ```
+
+   Add `DATABASE_URL` if you want the Postgres ledger for cross-run duplicate checks.
+2. **Connect it in Copilot Studio.** Open your agent and go to Tools → Add a tool → New tool → Model Context Protocol.
+   - Server URL: `https://<your-host>/mcp`.
+   - Authentication: **API key**, type **Header**, header name `X-API-Key`. Paste the token when you create the connection.
+   - Don't choose OAuth "Dynamic discovery". Verity serves no OAuth metadata.
+3. **Publish** the agent to Microsoft 365 Copilot and Teams.
+
+Declarative agents built with the Microsoft 365 Agents Toolkit (MCP plugin) don't accept API keys. They need Entra SSO or OAuth. You have two options:
+- Put Entra in front of Verity with Azure Container Apps built-in authentication, or with API Management `validate-jwt`. Have the gateway add the `X-API-Key` header.
+- Register Verity in the app manifest's `agentConnectors` with `ApiKeyPluginVault`.
+
+In HTTP mode every run id is a random 128-bit value. One user of a shared server can't `trace` another user's run.
+
+Not yet tried in a live Copilot tenant. If something doesn't work there, please open an issue.
+</details>
+
 <details><summary><b>Gemini CLI</b>: <code>~/.gemini/settings.json</code></summary>
 
 ```json
@@ -139,7 +179,7 @@ ChatGPT can't launch a local program, so it reaches Verity through an HTTPS endp
 2. Export its schema: `uv run python scripts/export_openapi.py`.
 3. In the GPT editor, add an Action, paste the schema and set API-key authentication.
 
-For MCP clients that only speak HTTP, `verity mcp --http 127.0.0.1:8765` serves the same tools privately. It needs `VERITY_HTTP_TOKEN` (24+ random characters) and rejects any `Origin` not in `VERITY_ALLOWED_ORIGINS`. Put TLS in front of it before exposing it beyond localhost.
+For MCP clients that only speak HTTP, `verity mcp --http 127.0.0.1:8765` serves the same tools privately. It needs `VERITY_HTTP_TOKEN` (24+ random characters), sent as `Authorization: Bearer <token>` or `X-API-Key: <token>`, and rejects any `Origin` not in `VERITY_ALLOWED_ORIGINS`. Put TLS in front of it before exposing it beyond localhost.
 </details>
 
 **Tools**
